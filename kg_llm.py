@@ -3,15 +3,18 @@ from langchain_openai import ChatOpenAI
 from langchain_community.graphs import Neo4jGraph
 from dotenv import load_dotenv
 import pandas as pd
-
+import os
 
 load_dotenv()
 
+URI = os.getenv("NEO4J_URI")
+AUTH = (os.getenv("NEO4J_USERNAME"), os.getenv("NEO4J_PASSWORD"))
+
 # Kết nối Neo4j database
 graph = Neo4jGraph(
-    url="neo4j+s://94667836.databases.neo4j.io",
-    username="neo4j",
-    password="qu6Mhe1D89mCZ_umoy5JKwItShKB-cuKh2Cf7Ig9vcU"
+    url=URI,
+    username=AUTH[0],
+    password=AUTH[1]
 )
 
 # Khởi tạo LLM với temperature thấp cho tốc độ nhanh hơn
@@ -38,6 +41,8 @@ while True:
     print("=" * 50)
 
     result = chain.invoke({"query": query})
+
+    # Sử dụng pandas để in ra kết quả dưới dạng bảng
     df = pd.DataFrame(result['result'])
     print(df)
     print("=" * 50)

@@ -1,0 +1,22 @@
+# Requirements for Knowledge Graph (KG) folder
+# Core dependencies for Neo4j and LangChain integration
+
+# Neo4j Python driver
+neo4j>=5.0.0
+
+# LangChain packages
+langchain-community>=0.0.20
+langchain-openai>=0.0.5
+
+# Data manipulation
+pandas>=2.0.0
+
+# Environment variables management
+python-dotenv>=1.0.0
+
+# Optional: For better data visualization
+# matplotlib>=3.7.0
+# seaborn>=0.12.0
+
+# Optional: For additional data processing
+# numpy>=1.24.0

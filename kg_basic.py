@@ -2,14 +2,18 @@ from neo4j import GraphDatabase
 from langchain_community.chains.graph_qa.cypher import GraphCypherQAChain
 from langchain_community.graphs import Neo4jGraph
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
-URI = "neo4j+s://94667836.databases.neo4j.io"
-AUTH = ("neo4j", "qu6Mhe1D89mCZ_umoy5JKwItShKB-cuKh2Cf7Ig9vcU")
+load_dotenv()
+
+URI = os.getenv("NEO4J_URI")
+AUTH = (os.getenv("NEO4J_USERNAME"), os.getenv("NEO4J_PASSWORD"))
 
 graph = Neo4jGraph(
-    url="neo4j+s://94667836.databases.neo4j.io",
-    username="neo4j",
-    password="qu6Mhe1D89mCZ_umoy5JKwItShKB-cuKh2Cf7Ig9vcU"
+    url=URI,
+    username=AUTH[0],
+    password=AUTH[1]
 )
 
 query = """
