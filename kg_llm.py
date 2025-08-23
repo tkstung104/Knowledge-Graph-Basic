@@ -29,6 +29,14 @@ chain = GraphCypherQAChain.from_llm(
     llm=llm,
     graph=graph,
     verbose=True,
+    return_direct=False,
+    allow_dangerous_requests=True
+)
+
+chain_temp = GraphCypherQAChain.from_llm(
+    llm=llm,
+    graph=graph,
+    verbose=True,
     return_direct=True,
     allow_dangerous_requests=True
 )
@@ -41,8 +49,15 @@ while True:
     print("=" * 50)
 
     result = chain.invoke({"query": query})
+    result_temp = chain_temp.invoke({"query": query})
 
+    if result['result'] not in ["I don't know the answer.", "Tôi không biết câu trả lời."]:
+        print(result['result'])
+    else:
+        df = pd.DataFrame(result_temp['result'])
+        print(df)
+        print("=" * 50)
     # Sử dụng pandas để in ra kết quả dưới dạng bảng
-    df = pd.DataFrame(result['result'])
-    print(df)
-    print("=" * 50)
+    # df = pd.DataFrame(result['result'])
+    # print(df)
+    # print("=" * 50)
